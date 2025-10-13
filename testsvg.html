@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Maze Path Slider</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+      #mazeContainer {
+        position: relative;
+        width: 624px;
+        height: 900px;
+        border: 1px solid #ccc;
+        user-select: none;
+      }
+      #mazeImage,
+      #mazeSVG {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 624px;
+        height: 900px;
+        display: block;
+      }
+      #mazePath {
+        fill: none;
+        stroke: #ebb5d4;
+        stroke-miterlimit: 10;
+        stroke-width: 9.1px; /* scaled from 7pt */
+      }
+      #slider {
+        margin-top: 20px;
+        width: 624px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="range" id="slider" min="0" max="1" step="0.01" value="0" />
+    <div id="mazeContainer">
+      <img id="mazeImage" src="maze4.png" alt="Maze Image" />
+      <svg
+        id="mazeSVG"
+        viewBox="4.5 9 459 666"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          id="mazePath"
+          d="
+          M0,3.5 
+          L108,3.5 
+          L108,111.5 
+          L9,111.5 
+          L9,147.5 
+          L45,147.5 
+          L45,174.5 
+          L36,174.5 
+          L36,237.5 
+          L108,237.5 
+          L108,210.5 
+          L63,210.5 
+          L63,129.5 
+          L117,129.5 
+          L117,156.5 
+          L189,156.5 
+          L189,84.5 
+          L306,84.5 
+          L306,201.5 
+          L234,201.5 
+          L234,237.5 
+          L198,237.5 
+          L198,300.5 
+          L261,300.5 
+          L261,291.5 
+          L252,291.5 
+          L252,210.5 
+          L333,210.5 
+          L333,246.5 
+          L324,246.5 
+          L324,318.5 
+          L396,318.5 
+          L396,309.5 
+          L378,309.5 
+          L378,264.5 
+          L423,264.5 
+          L423,273.5 
+          L450,273.5 
+          L450,327.5 
+          L459,327.5 
+          L459,471.5 
+          L441,471.5 
+          L441,435.5 
+          L369,435.5 
+          L369,489.5 
+          L342,489.5 
+          L342,543.5 
+          L333,543.5 
+          L333,597.5 
+          L351,597.5 
+          L351,660.5 
+          L459,660.5
+        "
+        />
+      </svg>
+    </div>
+
+    <script>
+      const path = document.getElementById("mazePath");
+      const slider = document.getElementById("slider");
+
+      const totalLength = path.getTotalLength();
+
+      // Initially hide path
+      path.style.strokeDasharray = totalLength;
+      path.style.strokeDashoffset = totalLength;
+
+      slider.addEventListener("input", () => {
+        const value = parseFloat(slider.value); // 0 to 1
+        path.style.strokeDashoffset = totalLength * (1 - value);
+      });
+    </script>
+  </body>
+</html>
